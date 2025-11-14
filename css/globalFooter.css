@@ -1,0 +1,81 @@
+/*making my life easier*/
+
+.footer {
+    background: rgba(0, 0, 0, 0);
+    padding: 2rem 0 2rem;
+    margin-top: 1rem;
+}
+
+.footer-content {
+    text-align: left;
+    max-width: 1400px;
+    max-height: 200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+    --neon-blue: #00d4ff;
+    --neon-pink: #ff0080;
+    --glass-bg: rgba(255, 200, 180, 0.1);
+    --glass-border: rgba(255, 255, 200, 0.1);
+}
+
+.social-link {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+}
+
+.social-link:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+}
+
+.social-link.github:hover {
+    background: #333;
+    box-shadow: 0 10px 30px rgba(51, 51, 51, 0.4);
+}
+
+.social-link.youtube:hover {
+    background: #ff0000;
+    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+}
+
+.social-link.tiktok:hover {
+    background: #000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.footer-text {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.footer-copyright {
+    color: whitesmoke;
+    opacity: 0.6;
+    font-size: 0.9rem;
+}

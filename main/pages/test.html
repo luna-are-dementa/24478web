@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year Switcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+        }
+
+        .year-switcher {
+            position: relative;
+            display: inline-block;
+        }
+
+        .year-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s;
+        }
+
+        .year-button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .arrow {
+            width: 1.25rem;
+            height: 1.25rem;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+            min-width: 100%;
+            z-index: 20;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .year-option {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #374151;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .year-option:hover {
+            background-color: #f9fafb;
+        }
+
+        .year-option.selected {
+            background-color: #eff6ff;
+            color: #2563eb;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="year-switcher">
+    <button class="year-button" id="yearButton">
+        <span id="selectedYear">2025</span>
+        <svg class="arrow" viewBox="0 0 24 24">
+            <path d="M19 9l-7 7-7-7"/>
+        </svg>
+    </button>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="dropdown-menu" id="dropdownMenu">
+        <button class="year-option selected" data-year="2025">2025</button>
+        <button class="year-option" data-year="2024">2024</button>
+        <button class="year-option" data-year="2023">2023</button>
+    </div>
+</div>
+
+<script>
+    const yearButton = document.getElementById('yearButton');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    const overlay = document.getElementById('overlay');
+    const selectedYearSpan = document.getElementById('selectedYear');
+    const yearOptions = document.querySelectorAll('.year-option');
+
+    // Toggle dropdown
+    yearButton.addEventListener('click', () => {
+        dropdownMenu.classList.toggle('show');
+        overlay.classList.toggle('show');
+    });
+
+    // Close dropdown when clicking overlay
+    overlay.addEventListener('click', () => {
+        dropdownMenu.classList.remove('show');
+        overlay.classList.remove('show');
+    });
+
+    // Handle year selection
+    yearOptions.forEach(option => {
+        option.addEventListener('click', (e) => {
+            const year = e.target.dataset.year;
+
+            // Update selected year display
+            selectedYearSpan.textContent = year;
+
+            // Update selected state
+            yearOptions.forEach(opt => opt.classList.remove('selected'));
+            e.target.classList.add('selected');
+
+            // Close dropdown
+            dropdownMenu.classList.remove('show');
+            overlay.classList.remove('show');
+
+            // Add your logic here to load resources for the selected year
+            console.log('Selected year: ' + year);
+        });
+    });
+</script>
+</body>
+</html>
