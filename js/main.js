@@ -226,23 +226,6 @@ gsap.to(".social-link", {
     repeat: -1
 });
 
-gsap.fromTo(".footer",
-    {
-        opacity: 0,
-        y: 50
-    },
-    {
-        scrollTrigger: {
-            trigger: ".footer",
-            start: "top 90%",
-            end: "top 60%",
-            scrub: 1
-        },
-        opacity: 1,
-        y: 0,
-        ease: "power2.out"
-    }
-);
 
 gsap.to("#bg-video", {
     scrollTrigger: {

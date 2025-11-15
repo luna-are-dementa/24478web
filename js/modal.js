@@ -34,7 +34,44 @@ const sponsorData = {
         bio: 'Vimetco Extrusion is part of the Vimetco Group, specializing in aluminum extrusion processes. They provide technical knowledge about manufacturing processes and materials that enhance our understanding of industrial engineering.',
         website: 'https://vimetcoextrusion.com/',
         logo: 'assets/sponsors/vimetco.png'
-    }
+    },
+    'todome': {
+        name: 'Todome',
+        bio: 'Todome is a leading company in the production of aluminum profiles and systems. They offer innovative solutions for various industries, including construction and automotive. Their support provides us with access to high-quality materials and industry insights.',
+        website: 'https://www.todome.ro/',
+        logo: 'assets/sponsors/todome.png'
+    },
+    'caphyon': {
+        name: 'Caphyon',
+        bio: 'Caphyon is a software development company known for its advanced tools and solutions. They specialize in creating software that enhances productivity and efficiency. Their support helps us with software development and technical resources for our robotics projects.',
+        website: 'https://www.caphyon.com/',
+        logo: 'assets/sponsors/caphyon.png'
+    },
+    'artrom': {
+        name: 'Artrom',
+        bio: 'Artrom is a prominent aluminum producer in Romania, focusing on high-quality aluminum products for various industries. Their expertise in material science and manufacturing processes provides valuable insights and resources for our robotics team.',
+        website: 'https://www.artrom.com/',
+        logo: 'assets/sponsors/artrom.png'
+    },
+    'slatina':{
+        name: 'City of Slatina',
+        bio: 'The City of Slatina is our local municipality that supports community initiatives, including our robotics team. Their backing helps us participate in competitions and promotes STEM education in our region.',
+        website: 'https://www.primariaslatina.ro/',
+        logo: 'assets/sponsors/slatina.png'
+    },
+    'wagramer':{
+        website: 'https://www.wagramer.ro/'
+    },
+    'mim':{
+        website: 'https://www.mimdragon.ro/'
+    },
+    'contur':{
+        website: 'https://www.contur-tech.ro/'
+    },
+    'ipadserie':{
+        website: 'http://ipadserie.ro/'
+    },
+
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -51,7 +88,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const sponsorKey = getSponsorKeyFromSrc(src);
 
             if (sponsorData[sponsorKey]) {
-                openSponsorModal(sponsorData[sponsorKey]);
+                const websiteUrl = sponsorData[sponsorKey].website;
+
+                if (websiteUrl && websiteUrl !== '#') {
+                    window.open(websiteUrl, '_blank');
+                }
             }
         });
     });
