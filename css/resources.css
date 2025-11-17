@@ -918,31 +918,42 @@ html.lenis {
     right: 0;
 }
 /* Resources gallery section frame */
+/* Find this rule */
 #container.gallery-container {
-    user-select: none;        /* prevents text selection */
+    user-select: none;
     position: relative;
-  width: 100%;
-  max-width: 1200px;     /* center nicely with your content-section */
-  height: 40rem;         /* fixed viewport height for the gallery */
-  margin: 0 auto;
-    overflow: hidden;
-  cursor: grab;
+    width: 100%;
+    max-width: 1200px;
+    height: 30rem;
+    margin: 0 auto;
+    overflow-x: auto;
+    scroll-behavior: smooth;
     scrollbar-width: none;
 }
-#container.gallery-container.grabbing { cursor: grabbing; }
+#container-top.gallery-container-top {
+    user-select: none;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
 
-/* Horizontal rail */
+
+#container.gallery-container::-webkit-scrollbar {
+    display: none;
+}
+
 #gallery.gallery {
     display: flex;
   gap: 1rem;
   align-items: center;
-  transform: translateX(0); /* JS updates this */
-  will-change: transform;
 }
 
 /* Cards */
 #gallery .card {
-    pointer-events: none;
+    cursor: pointer;
     position: relative;  /* Add this line */
     z-index: 100;
   flex: 0 0 20rem;
@@ -1252,4 +1263,42 @@ html.lenis {
     background: rgba(0, 212, 255, 1);
     transform: translateX(-50%) scale(1.05);
     box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+}
+.gallery-wrapper {
+    position: relative;
+}
+.gallery-wrapper{
+    margin-bottom: 100px;
+}
+.gallery-nav {
+    position: absolute;
+    z-index: 200;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(5px);
+}
+
+.gallery-nav:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-50%) scale(1.1);
+}
+.gallery-nav.left {
+    left: 50%;
+    transform: translateX(-100%) translateY(-200%);
+    margin-right: 10px;
+}
+
+/* RIGHT button */
+.gallery-nav.right {
+    left: 50%;
+    transform: translateX(0) translateY(-200%);
+    margin-left: 10px;
 }

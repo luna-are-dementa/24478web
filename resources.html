@@ -60,7 +60,7 @@
         <span><img src="assets/seasons/itd.png" alt="season_logo" class="season_logo" id="season_logo"></span>
     </div>
     <div id="particles-resources"></div>
-    <div class="gallery-container" id="container">
+    <div class="gallery-container-top" id="container-top">
         <div class="year-switcher">
             <button class="year-button" id="yearButton">
                 <span id="selectedYear">2025</span>
@@ -84,7 +84,10 @@
                 <button class="type-option" data-type="cad">CAD</button>
             </div>
         </div>
-        <div class="gallery" id="gallery">
+    </div>
+    <div class="gallery-wrapper">
+    <div class="gallery-container" id="container">
+    <div class="gallery" id="gallery">
             <h2 class="no_stuff" id="no_stuff">No resources available</h2>
             <div class="card" data-type="notebooks" data-pdf="PR_2025.pdf"><img src="/assets/resources/img/porto_regionala2025.png" />
                 <h3>Portfolio - West Romania Regional</h3>
@@ -105,7 +108,9 @@
         </div>
     </div>
     </div>
-
+    <button class="gallery-nav left" id="nav-left" aria-label="Scroll left">&lt;</button>
+    <button class="gallery-nav right" id="nav-right" aria-label="Scroll right">&gt;</button>
+</div>
 </section>
 <footer class="footer">
     <div class="footer-content">

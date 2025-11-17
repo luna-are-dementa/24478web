@@ -767,39 +767,6 @@ let targetX = 0;
     }
 
     // Drag support (mouse)
-    container.addEventListener('mousedown', (e) => {
-        isDown = true;
-        container.classList.add('grabbing');
-        startX = e.pageX - currentX;
-    });
-    window.addEventListener('mouseup', () => {
-        isDown = false;
-        container.classList.remove('grabbing');
-    });
-    window.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        targetX = e.pageX - startX;
-        clampTarget();
-    });
-
-    // Touch support
-    container.addEventListener('touchstart', (e) => {
-        isDown = true;
-        container.classList.add('grabbing');
-        startX = e.touches[0].pageX - currentX;
-    }, { passive: true });
-    window.addEventListener('touchend', () => {
-        isDown = false;
-        container.classList.remove('grabbing');
-    }, { passive: true });
-    window.addEventListener('touchmove', (e) => {
-        if (!isDown) return;
-        targetX = e.touches[0].pageX - startX;
-        clampTarget();
-    }, { passive: true });
-
-    // Recompute on resize/content changes
-    window.addEventListener('resize', clampTarget);
 
     // Reveal-on-view using IntersectionObserver relative to the gallery viewport
     const cards = Array.from(gallery.querySelectorAll('.card'));
@@ -1074,41 +1041,46 @@ function filterCards() {
         noneText.classList.add('show');
     }
 }
-// Add this script block to your HTML, replacing the old PDF click handler
+// --- NEW BLOCK 1 ---
+// This handles the new < and > navigation buttons
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('container');
+    const navLeft = document.getElementById('nav-left');
+    const navRight = document.getElementById('nav-right');
+
+    // If any of these don't exist, do nothing
+    if (!container || !navLeft || !navRight) return;
+
+    navLeft.addEventListener('click', () => {
+        // Scroll by 80% of the viewport width
+        const scrollAmount = container.clientWidth * 0.8;
+        container.scrollBy({
+            left: -scrollAmount,
+            behavior: 'smooth'
+        });
+    });
+
+    navRight.addEventListener('click', () => {
+        const scrollAmount = container.clientWidth * 0.8;
+        container.scrollBy({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+    });
+});
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const gallery = document.getElementById('gallery');
     if (!gallery) return;
 
-    let isDragging = false;
-    let startClickX = 0;
-    let startClickY = 0;
-
-    // Use 'mousedown' to record the start position
-    gallery.addEventListener('mousedown', function(e) {
-        isDragging = false; // Reset drag flag
-        startClickX = e.pageX; // Record start X
-        startClickY = e.pageY; // Record start Y
-    });
-
-    // Use 'mousemove' to check if it's a drag
-    gallery.addEventListener('mousemove', function(e) {
-        // If the mouse moves more than 10 pixels in any direction, consider it a drag
-        if (Math.abs(e.pageX - startClickX) > 10 || Math.abs(e.pageY - startClickY) > 10) {
-            isDragging = true;
-        }
-    });
-
-    // Use 'click' event, which fires after 'mouseup'
+    // Listen for clicks inside the gallery
     gallery.addEventListener('click', function(e) {
-        // If we were dragging, stop here. Don't open the PDF.
-        if (isDragging) {
-            return;
-        }
 
-        // If it was a click (not a drag), find the card
+        // Find the card that was clicked on
         const card = e.target.closest('.card[data-pdf]');
 
-        // If a clickable card was found
+        // If a clickable card was found (and not something else)
         if (card) {
             const pdfFile = card.getAttribute('data-pdf');
 
@@ -1119,25 +1091,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-
-    // --- Handle touch events for mobile ---
-    // (This ensures the drag-vs-click detection also works on touch devices)
-
-    let startTouchX = 0;
-    let startTouchY = 0;
-
-    gallery.addEventListener('touchstart', function(e) {
-        isDragging = false;
-        startTouchX = e.touches[0].pageX;
-        startTouchY = e.touches[0].pageY;
-    }, { passive: true }); // Use passive true for better scroll performance
-
-    gallery.addEventListener('touchmove', function(e) {
-        if (Math.abs(e.touches[0].pageX - startTouchX) > 10 || Math.abs(e.touches[0].pageY - startTouchY) > 10) {
-            isDragging = true;
-        }
-    }, { passive: true });
-
-    // The 'click' event listener above will also handle the tap event
-    // (which fires after touchend) and respect the 'isDragging' flag.
 });
