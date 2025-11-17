@@ -135,28 +135,6 @@ gsap.fromTo("choice-card, .award-card, .award-card-modif", {
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const video = document.getElementById('bg-video');
-    const volumeBtn = document.getElementById('volume-btn');
-    const mutedIcon = volumeBtn.querySelector('.muted');
-    const unmutedIcon = volumeBtn.querySelector('.unmuted');
-
-    volumeBtn.addEventListener('click', function() {
-        if (video.muted) {
-            video.muted = false;
-            mutedIcon.style.display = 'none';
-            unmutedIcon.style.display = 'block';
-            volumeBtn.setAttribute('aria-label', 'Mute volume');
-        } else {
-            video.muted = true;
-            mutedIcon.style.display = 'block';
-            unmutedIcon.style.display = 'none';
-            volumeBtn.setAttribute('aria-label', 'Unmute volume');
-        }
-    });
-});
-
-
 
 
 
@@ -183,23 +161,23 @@ gsap.to(".social-link", {
     repeat: -1
 });
 
-gsap.fromTo(".footer",
-    {
-        opacity: 0,
-        y: 50
-    },
-    {
-        scrollTrigger: {
-            trigger: ".footer",
-            start: "top 90%",
-            end: "top 60%",
-            scrub: 1
-        },
-        opacity: 1,
-        y: 0,
-        ease: "power2.out"
-    }
-);
+//gsap.fromTo(".footer",
+//   {
+//        opacity: 0,
+//        y: 50
+//    },
+//    {
+//        scrollTrigger: {
+//            trigger: ".footer",
+//            start: "top 90%",
+//            end: "top 60%",
+//            scrub: 1
+//        },
+//        opacity: 1,
+//        y: 0,
+//        ease: "power2.out"
+//    }
+//);
 
 
 
@@ -1096,29 +1074,70 @@ function filterCards() {
         noneText.classList.add('show');
     }
 }
-// Add click handlers for cards with PDFs at the END of the file
+// Add this script block to your HTML, replacing the old PDF click handler
 document.addEventListener('DOMContentLoaded', function() {
-    // Add click handlers for cards with PDFs
-    const cards = document.querySelectorAll('.card.is-visible[data-pdf]');
+    const gallery = document.getElementById('gallery');
+    if (!gallery) return;
 
-    cards.forEach(card => {
-        const h3 = card.querySelector('h3');
-        if (h3) {
-            // Add pointer cursor to indicate it's clickable
-            h3.style.cursor = 'pointer';
+    let isDragging = false;
+    let startClickX = 0;
+    let startClickY = 0;
 
-            // Add click event to the h3 element
-            h3.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                const pdfFile = card.getAttribute('data-pdf');
-                if (pdfFile) {
-                    // Open PDF in new tab
-                    const pdfPath = '/assets/resources/docs/' + pdfFile;
-                    console.log('Opening PDF:', pdfPath); // For debugging
-                    window.open(pdfPath, '_blank');
-                }
-            });
+    // Use 'mousedown' to record the start position
+    gallery.addEventListener('mousedown', function(e) {
+        isDragging = false; // Reset drag flag
+        startClickX = e.pageX; // Record start X
+        startClickY = e.pageY; // Record start Y
+    });
+
+    // Use 'mousemove' to check if it's a drag
+    gallery.addEventListener('mousemove', function(e) {
+        // If the mouse moves more than 10 pixels in any direction, consider it a drag
+        if (Math.abs(e.pageX - startClickX) > 10 || Math.abs(e.pageY - startClickY) > 10) {
+            isDragging = true;
         }
     });
+
+    // Use 'click' event, which fires after 'mouseup'
+    gallery.addEventListener('click', function(e) {
+        // If we were dragging, stop here. Don't open the PDF.
+        if (isDragging) {
+            return;
+        }
+
+        // If it was a click (not a drag), find the card
+        const card = e.target.closest('.card[data-pdf]');
+
+        // If a clickable card was found
+        if (card) {
+            const pdfFile = card.getAttribute('data-pdf');
+
+            if (pdfFile) {
+                // Construct the full path and open in a new tab
+                const pdfPath = '/assets/resources/docs/' + pdfFile;
+                window.open(pdfPath, '_blank');
+            }
+        }
+    });
+
+    // --- Handle touch events for mobile ---
+    // (This ensures the drag-vs-click detection also works on touch devices)
+
+    let startTouchX = 0;
+    let startTouchY = 0;
+
+    gallery.addEventListener('touchstart', function(e) {
+        isDragging = false;
+        startTouchX = e.touches[0].pageX;
+        startTouchY = e.touches[0].pageY;
+    }, { passive: true }); // Use passive true for better scroll performance
+
+    gallery.addEventListener('touchmove', function(e) {
+        if (Math.abs(e.touches[0].pageX - startTouchX) > 10 || Math.abs(e.touches[0].pageY - startTouchY) > 10) {
+            isDragging = true;
+        }
+    }, { passive: true });
+
+    // The 'click' event listener above will also handle the tap event
+    // (which fires after touchend) and respect the 'isDragging' flag.
 });

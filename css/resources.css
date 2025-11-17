@@ -214,6 +214,15 @@ h2:not(.no_stuff) {
     animation: glow 2s infinite alternate linear;
 }
 
+.gallery .card[data-pdf] {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery .card[data-pdf]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
 .gallery h2 {
     position: absolute;
     visibility: hidden;
@@ -1217,4 +1226,30 @@ html.lenis {
 /* Hide cards that don't match the selected type */
 .card.hidden {
     display: none;
+}
+.pdf-open-button {
+    position: absolute;
+    bottom: 1.25rem; /* 1.25rem from the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* Button Styling */
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #ffffff;
+    background: rgba(0, 212, 255, 0.7); /* Using your site's accent color */
+    border: none;
+    border-radius: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 201; /* Make sure it's on top */
+}
+
+.pdf-open-button:hover {
+    background: rgba(0, 212, 255, 1);
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
 }
