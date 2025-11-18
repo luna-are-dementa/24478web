@@ -783,9 +783,7 @@ html.lenis {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: var(--glass-bg);
     backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1194,4 +1192,13 @@ html.lenis {
     .sponsor-modal-bio p {
         font-size: 1.1rem;
     }
+}
+#artifact {
+    position: fixed;
+    bottom: 1%;
+    left: 80%; /* Start off-screen (right) */
+    width: 100px;
+    height: 100px;
+    z-index: 9999;
+    will-change: transform; /* Hint for the browser to optimize */
 }

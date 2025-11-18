@@ -1,7 +1,7 @@
 
 
 
-// Optional: Add JavaScript for more advanced features
+
 document.addEventListener('DOMContentLoaded', function() {
     const carousels = document.querySelectorAll('.carousel-track');
 
@@ -820,3 +820,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     observer.observe(hero);
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to("#artifact",{
+        left: "-10px",
+        rotation: -720,
+        ease: "none",
+        scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true,
+        }
+    })
+})
