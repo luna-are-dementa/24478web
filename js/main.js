@@ -1,11 +1,5 @@
-
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
     const carousels = document.querySelectorAll('.carousel-track');
-
-    // Optional: Adjust speed based on content width
     function adjustCarouselSpeed() {
         carousels.forEach(carousel => {
             const slideCount = carousel.children.length / 2; // Divided by 2 because we duplicate
@@ -13,10 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
             carousel.style.animationDuration = duration + 's';
         });
     }
-
     adjustCarouselSpeed();
-
-    // Adjust on window resize
     window.addEventListener('resize', adjustCarouselSpeed);
 });
 PowerGlitch.glitch('.hero-logo',
@@ -27,48 +18,35 @@ PowerGlitch.glitch('.hero-logo',
         }
     })
 document.addEventListener('DOMContentLoaded', function() {
-
     const cards = document.querySelectorAll(".choice-card");
     let currentController = null;
-
     function glitchRandomCard() {
         if (cards.length === 0) return;
 
-        // Get only cards that are NOT hovered
         const availableCards = Array.from(cards).filter(card =>
             !card.matches(":hover")
         );
 
-        // If all are hovered, do nothing
         if (availableCards.length === 0) return;
 
-        // Stop previous glitch
         if (currentController) {
             currentController.stopGlitch();
             currentController = null;
         }
 
-        // Pick a random card from the non-hovered ones
         const randomCard = availableCards[Math.floor(Math.random() * availableCards.length)];
 
-        // Start continuous glitch
         currentController = PowerGlitch.glitch(randomCard, {
             playMode: 'always'
         });
     }
-
-    // Start immediately
     glitchRandomCard();
-
-    // Switch every 2 seconds
     setInterval(glitchRandomCard, 2000);
 
 
     const burgerBtn = document.getElementById('burger-btn');
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
-
-    // Toggle mobile menu
     burgerBtn.addEventListener('click', function() {
         burgerBtn.classList.toggle('active');
         navMenu.classList.toggle('active');
@@ -80,8 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.overflow = 'auto';
         }
     });
-
-    // Close menu when clicking on nav links
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             burgerBtn.classList.remove('active');
@@ -90,7 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Close menu when clicking outside
     document.addEventListener('click', function(e) {
         if (!navMenu.contains(e.target) && !burgerBtn.contains(e.target)) {
             burgerBtn.classList.remove('active');
@@ -119,7 +94,6 @@ gsap.fromTo("#about p", {
     ease: "power2.out"
 });
 
-// Simple awards section animation - fade in only
 gsap.fromTo("choice-card, .award-card, .award-card-modif", {
     opacity: 0,
     y: 30
@@ -252,7 +226,6 @@ gsap.utils.toArray("section").forEach(section => {
     });
 });
 
-// Team section advanced animations
 gsap.to(".team-image", {
     scrollTrigger: {
         trigger: ".team-section",
@@ -278,8 +251,6 @@ gsap.to(".team-info", {
     rotationY: 0,
     ease: "power3.out"
 });
-
-// Goals section title with morphing effect
 gsap.fromTo("#services h2", {
     opacity: 0,
     scale: 0.5,
@@ -325,22 +296,18 @@ function raf(time) {
 requestAnimationFrame(raf);
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Logo entrance animation
     const heroLogo = document.getElementById('hero_logo');
     const heroSubtitle = document.getElementById('hero_subtitle');
     const heroCta = document.getElementById('hero_cta');
 
-    // Trigger logo animation after a brief delay
     setTimeout(() => {
         heroLogo.classList.add('loaded');
     }, 500);
 
-    // Trigger subtitle animation
     setTimeout(() => {
         heroSubtitle.classList.add('loaded');
     }, 1000);
 
-    // Trigger CTA button animation
     setTimeout(() => {
         heroCta.classList.add('loaded');
     }, 1500);
@@ -456,7 +423,6 @@ document.addEventListener('DOMContentLoaded', function() {
         "retina_detect": true
     })
 
-    // Initialize particles for About section
     particlesJS('particles-awards', {
         "particles": {
             "number": {
@@ -674,7 +640,6 @@ document.addEventListener('DOMContentLoaded', function() {
         "retina_detect": true
     });
 
-    // Initialize particles for Goals section
     particlesJS('particles-js', {
         "particles": {
             "number": {
@@ -764,7 +729,6 @@ document.addEventListener('DOMContentLoaded', function() {
         "retina_detect": true
     });
 
-    // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     const navLinks = document.querySelectorAll('.nav-link');
 
@@ -774,8 +738,6 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             navbar.classList.remove('scrolled');
         }
-
-        // Update active nav link based on scroll position
         let current = '';
         const sections = document.querySelectorAll('section');
         sections.forEach(section => {
@@ -785,7 +747,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 current = section.getAttribute('id');
             }
         });
-
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === '#' + current) {
@@ -793,8 +754,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    // Add smooth scrolling behavior for internal links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -807,8 +766,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    // Video pause/play optimization
     const video = document.getElementById('bg-video');
     const hero = document.getElementById('hero');
     const observer = new IntersectionObserver((entries) => {
@@ -833,5 +790,4 @@ document.addEventListener("DOMContentLoaded", function () {
             end: "bottom bottom",
             scrub: true,
         }
-    })
-})
+    })})

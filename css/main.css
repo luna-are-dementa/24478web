@@ -922,13 +922,13 @@ html.lenis {
 .carousel-track {
     display: flex;
     animation: scroll 20s linear infinite;
-    width: calc((200px + 40px) * 18); /* 200px min-width + 40px margin * 16 slides */
+    width: calc((200px + 40px) * 18);
 }
 
 .carousel-track-smaller {
     display: flex;
     animation: scroll 20s linear infinite;
-    width: calc((80px + 120px) * 20); /* 8 logos × 2 sets */
+    width: calc((80px + 120px) * 20);
 }
 .sponsor-slide {
     min-width: 200px;
@@ -999,7 +999,7 @@ html.lenis {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-50%); /* Half of total width */
+        transform: translateX(-50%);
     }
 }
 @media (max-width: 768px) {
@@ -1196,9 +1196,9 @@ html.lenis {
 #artifact {
     position: fixed;
     bottom: 1%;
-    left: 80%; /* Start off-screen (right) */
+    left: 80%;
     width: 100px;
     height: 100px;
     z-index: 9999;
-    will-change: transform; /* Hint for the browser to optimize */
+    will-change: transform;
 }

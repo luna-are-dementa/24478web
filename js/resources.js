@@ -1,10 +1,5 @@
-
-
-// Optional: Add JavaScript for more advanced features
 document.addEventListener('DOMContentLoaded', function() {
     const carousels = document.querySelectorAll('.carousel-track');
-
-    // Optional: Adjust speed based on content width
     function adjustCarouselSpeed() {
         carousels.forEach(carousel => {
             const slideCount = carousel.children.length / 2; // Divided by 2 because we duplicate
@@ -12,62 +7,43 @@ document.addEventListener('DOMContentLoaded', function() {
             carousel.style.animationDuration = duration + 's';
         });
     }
-
     adjustCarouselSpeed();
-
-    // Adjust on window resize
     window.addEventListener('resize', adjustCarouselSpeed);
 });
 
 document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll(".choice-card");
     let currentController = null;
-
     function glitchRandomCard() {
-
-
         if (cards.length === 0) return;
-
-        // Get only cards that are NOT hovered
         const availableCards = Array.from(cards).filter(card =>
             !card.matches(":hover")
         );
 
-        // If all are hovered, do nothing
         if (availableCards.length === 0) return;
 
-        // Stop previous glitch
         if (currentController) {
             currentController.stopGlitch();
             currentController = null;
         }
 
-        // Pick a random card from the non-hovered ones
         const randomCard = availableCards[Math.floor(Math.random() * availableCards.length)];
-
-        // Start continuous glitch
-        currentController = PowerGlitch.glitch(randomCard, {
+        currentController = PowerGlitch.glitch(randomCard,
+            {
             playMode: 'always'
         });
     }
-
-    // Start immediately
     glitchRandomCard();
-
-    // Switch every 2 seconds
     setInterval(glitchRandomCard, 2000);
 
 
     const burgerBtn = document.getElementById('burger-btn');
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
-
-    // Toggle mobile menu
     burgerBtn.addEventListener('click', function() {
         burgerBtn.classList.toggle('active');
         navMenu.classList.toggle('active');
 
-        // Prevent body scrolling when menu is open
         if (navMenu.classList.contains('active')) {
             document.body.style.overflow = 'hidden';
         } else {
@@ -75,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Close menu when clicking on nav links
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             burgerBtn.classList.remove('active');
@@ -84,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Close menu when clicking outside
     document.addEventListener('click', function(e) {
         if (!navMenu.contains(e.target) && !burgerBtn.contains(e.target)) {
             burgerBtn.classList.remove('active');
@@ -113,7 +87,6 @@ gsap.fromTo("#about p", {
     ease: "power2.out"
 });
 
-// Simple awards section animation - fade in only
 gsap.fromTo("choice-card, .award-card, .award-card-modif", {
     opacity: 0,
     y: 30
@@ -194,7 +167,6 @@ gsap.utils.toArray("section").forEach(section => {
     });
 });
 
-// Team section advanced animations
 gsap.to(".team-image", {
     scrollTrigger: {
         trigger: ".team-section",
@@ -221,7 +193,6 @@ gsap.to(".team-info", {
     ease: "power3.out"
 });
 
-// Goals section title with morphing effect
 gsap.fromTo("#services h2", {
     opacity: 0,
     scale: 0.5,
@@ -267,8 +238,6 @@ function raf(time) {
 requestAnimationFrame(raf);
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Logo entrance animation
-
     particlesJS('particles-resources',{
         "particles": {
             "number": {
@@ -380,7 +349,6 @@ document.addEventListener('DOMContentLoaded', function() {
         "retina_detect": true
     })
 
-    // Initialize particles for About section
     particlesJS('particles-awards', {
         "particles": {
             "number": {
@@ -598,7 +566,6 @@ document.addEventListener('DOMContentLoaded', function() {
         "retina_detect": true
     });
 
-    // Initialize particles for Goals section
     particlesJS('particles-js', {
         "particles": {
             "number": {
@@ -687,8 +654,6 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         "retina_detect": true
     });
-
-    // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     const navLinks = document.querySelectorAll('.nav-link');
 
@@ -699,7 +664,6 @@ document.addEventListener('DOMContentLoaded', function() {
             navbar.classList.remove('scrolled');
         }
 
-        // Update active nav link based on scroll position
         let current = '';
         const sections = document.querySelectorAll('section');
         sections.forEach(section => {
@@ -718,7 +682,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add smooth scrolling behavior for internal links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -732,7 +695,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Video pause/play optimization
 });
 
 let startX = 0;
@@ -745,8 +707,6 @@ let targetX = 0;
     if (!container || !gallery) return;
 
     let isDown = false;
-
-    // recompute bounds based on real content width
     function getBounds() {
         const railWidth = gallery.scrollWidth;     // total width of the horizontal rail
         const viewWidth = container.clientWidth;   // viewport width for the gallery
@@ -765,10 +725,6 @@ let targetX = 0;
         gallery.style.transform = `translateX(${currentX}px)`;
         requestAnimationFrame(animate);
     }
-
-    // Drag support (mouse)
-
-    // Reveal-on-view using IntersectionObserver relative to the gallery viewport
     const cards = Array.from(gallery.querySelectorAll('.card'));
     const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -784,8 +740,6 @@ let targetX = 0;
         threshold: 0.2         // reveal when 20% visible
     });
     cards.forEach(c => io.observe(c));
-
-    // Kick off
     clampTarget();
     animate();
 })();
@@ -795,7 +749,6 @@ const target = "Resources";
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?@#$%&*";
 const container = document.getElementById("decrypt2");
 
-// Initialize spans for each character
 const spans = [];
 for (let i = 0; i < target.length; i++) {
     const span = document.createElement("span");
@@ -812,7 +765,6 @@ function getRandomChar() {
 function resolveChar(index) {
     if (index >= target.length) return;
     let span = spans[index];
-    // Animate a few random flickers first
     let flickers = 0;
     const maxFlickers = 3;
     const flickInterval = setInterval(() => {
@@ -843,11 +795,8 @@ const seasonLogos = {
     '2023': '/assets/seasons/centerstage.png',
 };
 
-// Create timelines for smooth animations
 const openTimeline = gsap.timeline({ paused: true });
 const closeTimeline = gsap.timeline({ paused: true });
-
-// Setup open animation
 openTimeline
     .to(overlay, {
         opacity: 1,
@@ -905,7 +854,6 @@ closeTimeline
         ease: 'power2.in'
     }, 0.2);
 
-// Toggle function
 let isOpen = false;
 const selectedYearSpan = document.getElementById('selectedYear');
 
@@ -934,10 +882,8 @@ yearOptions.forEach(option => {
             duration: 0.3,
             ease: 'power2.in',
             onComplete: () => {
-                // Change the image source
                 seasonLogo.src = seasonLogos[year];
 
-                // Animate logo back in
                 gsap.fromTo(seasonLogo,
                     {
                         opacity: 0,
@@ -954,7 +900,6 @@ yearOptions.forEach(option => {
                 );
             }
         });
-        // Update selected year display
         selectedYearSpan.textContent = year;
         PowerGlitch.glitch(".decrypted",{
             "timing": {
@@ -967,18 +912,12 @@ yearOptions.forEach(option => {
                 "end": 0.45
             }
         });
-        // Update selected state
         yearOptions.forEach(opt => opt.classList.remove('selected'));
         e.target.classList.add('selected');
-
-        // Close dropdown
         dropdownMenu.classList.remove('show');
-
-        // Add your logic here to load resources for the selected year
         console.log('Selected year: ' + year);
     });
 });
-// Hover effects on year options
 yearOptions.forEach(option => {
     option.addEventListener('mouseenter', function() {
         gsap.to(this, {
@@ -1000,7 +939,6 @@ yearOptions.forEach(option => {
         }
     });
 });
-// Resource Type Switcher Functionality
 const typeDropdownMenu = document.getElementById('typeDropdownMenu');
 const typeOverlay = document.getElementById('typeOverlay');
 const typeOptions = document.querySelectorAll('.type-option');
@@ -1008,7 +946,6 @@ const selectedTypeSpan = document.getElementById('selectedType');
 const galleryCards = document.querySelectorAll('.gallery .card');
 const noneText = document.getElementById('no_stuff');
 let currentResourceType = 'all';
-// Handle type selection
 typeOptions.forEach(option => {
     option.addEventListener('click', () => {
         hasFound = false;
@@ -1021,7 +958,6 @@ typeOptions.forEach(option => {
     });
 });
 
-// Filter cards based on selected type
 let hasFound = false;
 function filterCards() {
     galleryCards.forEach(card => {
@@ -1041,18 +977,13 @@ function filterCards() {
         noneText.classList.add('show');
     }
 }
-// --- NEW BLOCK 1 ---
-// This handles the new < and > navigation buttons
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('container');
     const navLeft = document.getElementById('nav-left');
     const navRight = document.getElementById('nav-right');
-
-    // If any of these don't exist, do nothing
     if (!container || !navLeft || !navRight) return;
 
     navLeft.addEventListener('click', () => {
-        // Scroll by 80% of the viewport width
         const scrollAmount = container.clientWidth * 0.8;
         container.scrollBy({
             left: -scrollAmount,
@@ -1074,18 +1005,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const gallery = document.getElementById('gallery');
     if (!gallery) return;
 
-    // Listen for clicks inside the gallery
     gallery.addEventListener('click', function(e) {
 
-        // Find the card that was clicked on
         const card = e.target.closest('.card[data-pdf]');
 
-        // If a clickable card was found (and not something else)
         if (card) {
             const pdfFile = card.getAttribute('data-pdf');
 
             if (pdfFile) {
-                // Construct the full path and open in a new tab
                 const pdfPath = '/assets/resources/docs/' + pdfFile;
                 window.open(pdfPath, '_blank');
             }

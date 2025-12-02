@@ -22,18 +22,16 @@ nav {
     background: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     display: flex;
-    justify-content: space-between; /* Changed from center to space-between */
+    justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
     z-index: 9999;
     transition: all 0.3s ease;
 }
 
-/* Make the left and right ul elements flex but don't expand them */
 nav ul {
     display: flex;
     list-style: none;
-    /* Remove flex: 1 to prevent expansion */
 }
 .nav-menu {
     display: flex;
@@ -41,15 +39,15 @@ nav ul {
     width: 100%;
     align-items: center;
 }
-/* Center the logo absolutely */
 .logo {
     position: absolute;
+    top: 10%;
     left: 50%;
     transform: translateX(-50%);
     height: 80%;
     width: auto;
     filter: brightness(0) invert(1);
-    z-index: 1; /* Ensure logo stays on top */
+    z-index: 1;
 }
 .ribbon {
     position: absolute;
@@ -57,11 +55,10 @@ nav ul {
     left: 25%;
     height: 200%;
     width: auto;
-    z-index: 1; /* Ensure logo stays on top */
+    z-index: 1;
 }
 
 
-/* Push the right navigation to the right side */
 nav ul:last-of-type {
     margin-left: auto;
 }
@@ -114,7 +111,6 @@ nav ul li a.active {
     }
 }
 
-/* Burger menu styles */
 .burger-menu {
     display: none;
     flex-direction: column;
@@ -219,7 +215,6 @@ nav ul li a.active {
         transform: none;
     }
 
-    /* Keep logo visible and centered */
     .logo {
         position: absolute;
         left: 50%;
@@ -228,7 +223,6 @@ nav ul li a.active {
         z-index: 10001;
     }
 
-    /* Adjust nav height for mobile */
     nav {
         height: 70px;
     }
